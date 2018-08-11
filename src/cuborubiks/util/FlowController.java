@@ -206,17 +206,18 @@ public class FlowController {
         stage.show();
     }
 
+    /*
     //Tengo problemas abriendo una pantalla que ya habia abierto y cerre, entonces voy a hacerlo a la antigua 
     public void goViewInWindowALaAntigua(String scene) throws IOException {
         Parent parent = FXMLLoader.load(CuboRubiks.class.getResource("view/" + scene + ".fxml"));
         Scene sceneToGo = new Scene(parent);
         Stage stage = new Stage();
-        stage.getIcons().add(new Image("juegomemoria/resources/icono.png"));
-        stage.setTitle("Memoria - KF");
+        stage.getIcons().add(new Image("cuborubiks/resources/icono.png"));
+        stage.setTitle("Cubo Rubiks- KF");
         stage.setResizable(false);
         stage.setScene(sceneToGo);
         stage.show();
-    }
+    }*/
 
     public Controller getController(String viewName) {
         return getLoader(viewName).getController();

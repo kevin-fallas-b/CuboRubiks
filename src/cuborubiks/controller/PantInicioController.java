@@ -6,6 +6,8 @@
 package cuborubiks.controller;
 
 import com.jfoenix.controls.JFXButton;
+import cuborubiks.util.FlowController;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -49,7 +51,8 @@ public class PantInicioController extends Controller implements Initializable {
     }
 
     @FXML
-    private void presionarBtnAcercaDe(ActionEvent event) {
+    private void presionarBtnAcercaDe(ActionEvent event) throws IOException {
+        FlowController.getInstance().goViewSameWindow("PantAcercaDe", btnAcercaDe);
     }
 
     @FXML
@@ -57,11 +60,13 @@ public class PantInicioController extends Controller implements Initializable {
     }
 
     @FXML
-    private void presionarBtnCargarPartida(ActionEvent event) {
+    private void presionarBtnCargarPartida(ActionEvent event) throws IOException {
+        FlowController.getInstance().goViewSameWindow("PantCargar", btnCargarPartida);
     }
 
     @FXML
-    private void presionarBtnModificarPartida(ActionEvent event) {
+    private void presionarBtnModificarPartida(ActionEvent event) throws IOException {
+        FlowController.getInstance().goViewSameWindow("PantModificarCubo", btnModificarPartida);
     }
 
 }

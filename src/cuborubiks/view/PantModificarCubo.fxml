@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="cuborubiks.controller.PantModificarCuboController">
+   <children>
+      <JFXButton fx:id="btnCancelar" buttonType="RAISED" layoutX="526.0" layoutY="454.0" onAction="#presionarBtnCancelar" prefHeight="30.0" prefWidth="80.0" text="Cancelar" />
+      <JFXButton fx:id="btnIniciar" buttonType="RAISED" layoutX="606.0" layoutY="454.0" onAction="#presionarBtnIniciar" prefHeight="30.0" prefWidth="80.0" text="Iniciar" />
+   </children>
+</AnchorPane>
