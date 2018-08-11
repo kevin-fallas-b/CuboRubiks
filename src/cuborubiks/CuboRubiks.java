@@ -5,11 +5,13 @@
  */
 package cuborubiks;
 
+import cuborubiks.util.FlowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import cuborubiks.util.FlowController;
 
 /**
  *
@@ -19,12 +21,8 @@ public class CuboRubiks extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("view/PantInicio.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+        FlowController.getInstance().InitializeFlow(stage, null);
+        FlowController.getInstance().goViewInWindow("PantInicio");
     }
 
     /**

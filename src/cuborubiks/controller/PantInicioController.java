@@ -18,7 +18,7 @@ import javafx.scene.control.Button;
  *
  * @author kevin
  */
-public class PantInicioController implements Initializable {
+public class PantInicioController extends Controller implements Initializable {
 
     @FXML
     private Button btnAyuda;
@@ -37,7 +37,12 @@ public class PantInicioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
+    @Override
+    public void initialize() {
+
+    }
 
     @FXML
     private void presionarBtnAyuda(ActionEvent event) {
@@ -58,5 +63,5 @@ public class PantInicioController implements Initializable {
     @FXML
     private void presionarBtnModificarPartida(ActionEvent event) {
     }
-    
+
 }
