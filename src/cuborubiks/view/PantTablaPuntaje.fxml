@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="pantTablaPuntaje" prefHeight="500.0" prefWidth="700.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cuborubiks.controller.PantTablaPuntajeController">
+   <children>
+      <JFXButton fx:id="btnRegresar" layoutX="14.0" layoutY="460.0" onAction="#presionarBtnRegresar" text="Regresar" />
+      <TableView fx:id="tvPuntaje" layoutX="10.0" layoutY="109.0" prefHeight="200.0" prefWidth="680.0">
+        <columns>
+          <TableColumn fx:id="clmJugador" prefWidth="187.0" text="Jugador" />
+          <TableColumn fx:id="clmPuntaje" prefWidth="491.0" text="Puntaje" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

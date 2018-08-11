@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cuborubiks.controller.PantAcercaDeController">
+<AnchorPane id="pantAcercaDe" prefHeight="500.0" prefWidth="700.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cuborubiks.controller.PantAcercaDeController">
    <children>
-      <JFXButton fx:id="btnRegresar" buttonType="RAISED" layoutX="22.0" layoutY="451.0" onAction="#presionarBtnRegresar" text="Regresar" />
+      <JFXButton fx:id="btnRegresar" buttonType="RAISED" layoutX="14.0" layoutY="460.0" onAction="#presionarBtnRegresar" text="Regresar" />
+      <ImageView fitHeight="88.0" fitWidth="163.0" layoutX="537.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/logouniversidad.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="151.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Este proyecto fue desarrollado por Kevin Fallas para el curso Estructuras de Datos. La programacion de dicho proyecto se llevo acabo durante el segundo semestre del 2018" textAlignment="JUSTIFY" wrappingWidth="397.1240234375" />
    </children>
 </AnchorPane>
