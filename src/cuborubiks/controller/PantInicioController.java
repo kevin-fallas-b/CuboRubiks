@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -68,6 +69,9 @@ public class PantInicioController extends Controller implements Initializable {
 
     @FXML
     private void presionarBtnIniciar(ActionEvent event) {
+        FlowController.getInstance().goMain();
+        Stage stage = (Stage)btnIniciar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

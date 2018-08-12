@@ -90,8 +90,8 @@ public class FlowController {
 
     public void goMain() {
         try {
-            this.mainStage.setScene(new Scene(FXMLLoader.load(CuboRubiks.class.getResource("view/PantallaPrincipal.fxml"), this.idioma)));
-            this.mainStage.setTitle("Memoria - KF");
+            this.mainStage.setScene(new Scene(FXMLLoader.load(CuboRubiks.class.getResource("view/PantPrincipal.fxml"), this.idioma)));
+            this.mainStage.setTitle("Cubo Rubiks - KF");
             this.mainStage.getIcons().add(new Image("cuborubiks/resources/icono.png"));
             this.mainStage.show();
             this.mainStage.setResizable(false);
