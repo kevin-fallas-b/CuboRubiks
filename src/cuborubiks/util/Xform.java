@@ -16,7 +16,7 @@ import javafx.scene.transform.Translate;
  * 
  * clase utilizada para agregar tranformaciones y rotaciones
  */
-class Xform extends Group
+public class Xform extends Group
 {
 
     public enum RotateOrder

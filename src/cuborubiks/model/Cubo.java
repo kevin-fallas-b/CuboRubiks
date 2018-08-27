@@ -5,6 +5,16 @@
  */
 package cuborubiks.model;
 
+import javafx.geometry.Point3D;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Mesh;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.TriangleMesh;
+import javafx.scene.shape.VertexFormat;
+
 /**
  *
  * @author kevin
@@ -29,4 +39,106 @@ public class Cubo {
     */
     
     //creacion del objeto 3d
+    /**
+     * Creates a new unit cube, where the sides have the colors from
+     * the given array. The array must have at least 6 elements, where
+     * the colors will be used as follows:
+     *  0 = Front
+     *  1 = Bottom
+     *  2 = Up
+     *  3 = Down
+     *  4 = Left
+     *  5 = Right
+     * @param colors The colors
+     * @return The color cube
+     */
+    public static Node create(Color colors[])
+    {
+        Point3D points[] = new Point3D[8];
+        for (int i = 0; i < 8; i++)
+        {
+            double x = (i & 0x1) == 0 ? 0.0 : 1.0;
+            double y = (i & 0x2) == 0 ? 0.0 : 1.0;
+            double z = (i & 0x4) == 0 ? 0.0 : 1.0;
+            points[i] = new Point3D(x, y, z);
+        }
+
+        // F = Front
+        // B = Back 
+        // U = Up   
+        // D = Down 
+        // L = Left 
+        // R = Right
+        TriangleMesh meshF = createPlane(
+            points[0], points[1], points[3], points[2], new Point3D(0, 0, -1));
+        TriangleMesh meshB = createPlane(
+            points[6], points[7], points[5], points[4], new Point3D(0, 0, 1));
+
+        TriangleMesh meshU = createPlane(
+            points[2], points[3], points[7], points[6], new Point3D(0, 1, 0)); 
+
+        TriangleMesh meshD = createPlane(
+            points[4], points[5], points[1], points[0], new Point3D(0, -1, 0));
+
+        TriangleMesh meshL = createPlane(
+            points[4], points[0], points[2], points[6], new Point3D(-1, 0, 0));
+        TriangleMesh meshR = createPlane(
+            points[1], points[5], points[7], points[3], new Point3D(1, 0, 0));
+
+        Group group = new Group();
+        group.getChildren().add(createPlane(meshF, colors[0]));
+        group.getChildren().add(createPlane(meshB, colors[1]));
+        group.getChildren().add(createPlane(meshU, colors[2]));
+        group.getChildren().add(createPlane(meshD, colors[3]));
+        group.getChildren().add(createPlane(meshL, colors[4]));
+        group.getChildren().add(createPlane(meshR, colors[5]));
+
+        return group;
+    }
+
+    private static TriangleMesh createPlane(
+        Point3D p0, Point3D p1, Point3D p2, Point3D p3, Point3D normal)
+    {
+        TriangleMesh mesh = new TriangleMesh();
+        mesh.setVertexFormat(VertexFormat.POINT_NORMAL_TEXCOORD);
+        mesh.getPoints().addAll(new float[] { 
+            (float) p0.getX(), (float) p0.getY(), (float) p0.getZ(), 
+            (float) p1.getX(), (float) p1.getY(), (float) p1.getZ(), 
+            (float) p2.getX(), (float) p2.getY(), (float) p2.getZ(), 
+            (float) p3.getX(), (float) p3.getY(), (float) p3.getZ(), 
+        });
+        mesh.getNormals().addAll( new float[] { 
+            (float) normal.getX(), (float) normal.getY(), (float) normal.getZ(), 
+            (float) normal.getX(), (float) normal.getY(), (float) normal.getZ(),
+            (float) normal.getX(), (float) normal.getY(), (float) normal.getZ(), 
+            (float) normal.getX(), (float) normal.getY(), (float) normal.getZ(), 
+        });
+        mesh.getTexCoords().addAll(new float[] { 
+            0, 0, 
+            0, 0, 
+            0, 0, 
+            0, 0, });
+        mesh.getFaces().addAll(new int[] { 
+            3, 3, 3, 
+            1, 1, 1, 
+            0, 0, 0,
+            3, 3, 3, 
+            2, 2, 2, 
+            1, 1, 1, 
+        });
+        return mesh;
+    }
+
+    private static Node createPlane(Mesh mesh, Color color)
+    {
+        PhongMaterial material = new PhongMaterial();
+        material.setDiffuseColor(color);
+        material.setSpecularColor(color.brighter());
+
+        MeshView meshView = new MeshView(mesh);
+        meshView.setMaterial(material);
+        return meshView;
+    }
+
+
 }

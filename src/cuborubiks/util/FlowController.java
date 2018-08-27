@@ -27,6 +27,7 @@ import javafx.stage.WindowEvent;
 import cuborubiks.CuboRubiks;
 import cuborubiks.controller.Controller;
 import cuborubiks.controller.PantInicioController;
+import javafx.scene.layout.AnchorPane;
 
 public class FlowController {
 
@@ -90,7 +91,7 @@ public class FlowController {
 
     public void goMain() {
         try {
-            this.mainStage.setScene(new Scene(FXMLLoader.load(CuboRubiks.class.getResource("view/PantPrincipal.fxml"), this.idioma)));
+            this.mainStage.setScene(new Scene(FXMLLoader.load(CuboRubiks.class.getResource("view/PantPrincipal.fxml"), this.idioma),1024,768,true));
             this.mainStage.setTitle("Cubo Rubiks - KF");
             this.mainStage.getIcons().add(new Image("cuborubiks/resources/icono.png"));
             this.mainStage.show();
@@ -121,8 +122,8 @@ public class FlowController {
         }
         switch (location) {
             case "Center":
-                ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter()).getChildren().clear();
-                ((VBox) ((BorderPane) stage.getScene().getRoot()).getCenter()).getChildren().add(loader.getRoot());
+                ((AnchorPane) ((BorderPane) stage.getScene().getRoot()).getCenter()).getChildren().clear();
+                ((AnchorPane) ((BorderPane) stage.getScene().getRoot()).getCenter()).getChildren().add(loader.getRoot());
                 break;
             case "Top":
                 break;
@@ -233,6 +234,9 @@ public class FlowController {
 
     public void salir() {
         this.mainStage.close();
+    }
+    public Stage getMainStage(){
+        return this.mainStage;
     }
 
 }

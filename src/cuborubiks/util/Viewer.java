@@ -24,7 +24,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class Viewer {
 
-    private static final double CAMERA_INITIAL_DISTANCE = -450;
+    private static final double CAMERA_INITIAL_DISTANCE = -950;
     private static final double CAMERA_INITIAL_X_ANGLE = 0.0;
     private static final double CAMERA_INITIAL_Y_ANGLE = 0.0;
     private static final double CAMERA_NEAR_CLIP = 0.1;
@@ -49,7 +49,7 @@ public class Viewer {
     private double mouseDeltaX;
     private double mouseDeltaY;
 
-    Viewer(Scene scene, Group root) {
+    public Viewer(Scene scene, Group root) {
         root.getChildren().add(cameraXform);
         cameraXform.getChildren().add(cameraXform2);
         cameraXform2.getChildren().add(cameraXform3);
