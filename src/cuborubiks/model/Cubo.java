@@ -10,24 +10,23 @@ package cuborubiks.model;
  * @author kevin
  */
 /*
-esta es a clase cubo, cada objeto de esta clase es un cubo rubiks 3x3
-tiene una lista doblemente enlazada de pasos realizados y tiene metodos privados que realizan un movimiento en una cara del cubo 
-y tiene una funcion publica que recibe de parametro un string que usa un switch para mover el cubo
-esa ultima funcion se ejecuta cuando se presiona un boton en pantallla
- */
+Clase cubo que representa un cubo pequeno*/
 public class Cubo {
-
-    private Integer posiciones[][][] = new Integer[3][3][3];
-
+    
     private enum Integer {
-        ROJO, AZUL, BLANCO, AMARILLO, VERDE, NARANJA
+        ROJO, AZUL, BLANCO, AMARILLO, VERDE, NARANJA, GRIS
     };
-
-    public void mover(String direccion) {
-        switch (direccion) {
-            case "fr":
-                //aqui llamo la funcion privada de mover front y right, esa funcion se encarga de agregar a la lista de movimientos realizados de mover las posiciones en el cubo
-                //despues de mover las posiciones deberia actualizar pantalla
-        }
-    }
+    private Integer posicion; //guardo la posicio para mas adelante tener facilidad a la hora de hace un movimiento
+    private Integer lado[]= new Integer[6];
+    /*
+     vector que contiene el color de cada cara del cubo, recordar que cada pieza, sin importar si es centro o no tiene 6 lados
+        0=frente
+        1=arriba
+        2=abajo
+        3=izquierda
+        4=derecha
+        5=atras
+    */
+    
+    //creacion del objeto 3d
 }
