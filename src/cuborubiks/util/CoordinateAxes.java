@@ -20,7 +20,7 @@ import javafx.scene.shape.Box;
  */
 public class CoordinateAxes
 {
-    private static final double AXIS_LENGTH = 250.0;
+    private static final double AXIS_LENGTH = 500.0;
 
     private final Xform axisGroup = new Xform();
 

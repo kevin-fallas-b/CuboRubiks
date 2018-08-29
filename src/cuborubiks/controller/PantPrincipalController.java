@@ -35,6 +35,9 @@ public class PantPrincipalController extends Controller implements Initializable
     @FXML
     private AnchorPane apBottom;
 
+    Cubo cubo[][][] = new Cubo[3][3][3];
+
+    public static Xform world = new Xform();
 
     /**
      * Initializes the controller class.
@@ -43,14 +46,14 @@ public class PantPrincipalController extends Controller implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
         Group root = new Group();
         root.setDepthTest(DepthTest.ENABLE);
-        Xform world = new Xform();
         root.getChildren().add(world);
         CoordinateAxes coordinateAxes = new CoordinateAxes();
         world.getChildren().addAll(coordinateAxes.get());
+        crearCubo();
         //crea los cubos que se ven en pantalla, no es final, ahorita es solo para probar, recibe parent como parametro
-        buildSceneGaph(world);
+        //buildSceneGaph(world);
         //se utiliza SubScene ya que se puede incluir dentro del BorderPane
-        SubScene subScene=new SubScene(root,1024,450,true,javafx.scene.SceneAntialiasing.BALANCED);
+        SubScene subScene = new SubScene(root, 1024, 450, true, javafx.scene.SceneAntialiasing.BALANCED);
         subScene.setFill(Color.GREY);
         //viewer le agrega camara y control de camara al subscene
         Viewer viewer = new Viewer(subScene, root);
@@ -64,7 +67,7 @@ public class PantPrincipalController extends Controller implements Initializable
     private void buildSceneGaph(Group parent) {
         double sizeCubo = 50;
 
-        Node cube000 = Cubo.create(new Color[]{
+        Node cube000 = Cubo.createInterno(new Color[]{
             Color.RED, // Front
             Color.BLUE, // Back
             Color.GREEN, // Up 
@@ -78,7 +81,7 @@ public class PantPrincipalController extends Controller implements Initializable
         cubeXform000.getChildren().add(cube000);
         parent.getChildren().add(cubeXform000);
 
-        Node cube100 = Cubo.create(new Color[]{
+        Node cube100 = Cubo.createInterno(new Color[]{
             Color.RED, // Front
             Color.BLUE, // Back
             Color.GREEN, // Up 
@@ -92,7 +95,7 @@ public class PantPrincipalController extends Controller implements Initializable
         cubeXform100.getChildren().add(cube100);
         parent.getChildren().add(cubeXform100);
 
-        Node cube200 = Cubo.create(new Color[]{
+        Node cube200 = Cubo.createInterno(new Color[]{
             Color.RED, // Front
             Color.BLUE, // Back
             Color.GREEN, // Up 
@@ -120,5 +123,27 @@ public class PantPrincipalController extends Controller implements Initializable
         cubeXform500.setTranslate(3 * size,0,0);
         cubeXform500.getChildren().add(cube500);
         parent.getChildren().add(cubeXform500);*/
+    }
+
+    private void crearCubo() {
+        Integer cont = 0;
+        Double posX = -1.50;
+        Double posY = -1.50;
+        Double posZ = -1.50;
+        for (int i = 0; i < 3; i++) {
+            posY = -1.50;
+            for (int k = 0; k < 3; k++) {
+                for (int j = 0; j < 3; j++) {
+                    Cubo cub = new Cubo(cont, posX, posY, posZ);
+                    cont++;
+                    cubo[i][k][j] = cub;
+                    posX += 1.05;
+                }
+                posY += 1.05;
+                posX = -1.50;
+            }
+            posZ += 1.05;
+
+        }
     }
 }

@@ -19,7 +19,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                      <children>
-                        <Label text="Giros:" />
+                        <Label text="Girar Camara:" />
                         <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Derecha" />
                         <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Izquierda" />
                         <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Abajo" />
