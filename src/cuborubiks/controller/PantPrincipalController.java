@@ -18,11 +18,10 @@ import cuborubiks.util.Xform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -33,7 +32,12 @@ import javafx.stage.Stage;
 public class PantPrincipalController extends Controller implements Initializable {
 
     @FXML
-    private Button bot;
+    private BorderPane bpPrincipal;
+    @FXML
+    private AnchorPane apCentro;
+    @FXML
+    private AnchorPane apBottom;
+
 
     /**
      * Initializes the controller class.
@@ -50,19 +54,10 @@ public class PantPrincipalController extends Controller implements Initializable
         world.getChildren().addAll(coordinateAxes.get());
 
         buildSceneGaph(world);
-
-        Scene scene = new Scene(root, 1024, 768, true);
-        scene.setFill(Color.GREY);
-        Viewer viewer = new Viewer(scene, root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-        //Stage stagePantPrincipal = FlowController.getInstance().getMainStage();
-        //stagePantPrincipal.setScene(scene);
-        //Viewer viewer2 = new Viewer(stagePantPrincipal.getScene(), root);
-        //stagePantPrincipal.close();
-        //((AnchorPane) ((BorderPane) stagePantPrincipal.getScene().getRoot()).getCenter()).getChildren().add(scene.getRoot());
-
+        SubScene subsc=new SubScene(root,1000,500,true,javafx.scene.SceneAntialiasing.BALANCED);
+        subsc.setFill(Color.GREY);
+        Viewer viewer = new Viewer(subsc, root);
+        bpPrincipal.setCenter(subsc);
     }
 
     @Override
@@ -70,7 +65,7 @@ public class PantPrincipalController extends Controller implements Initializable
     }
 
     private void buildSceneGaph(Group parent) {
-        double size = 50;
+        double sizeCubo = 50;
 
         Node cube000 = Cubo.create(new Color[]{
             Color.RED, // Front
@@ -81,8 +76,8 @@ public class PantPrincipalController extends Controller implements Initializable
             Color.BLACK // Right
         });
         Xform cubeXform000 = new Xform();
-        cubeXform000.setScale(size * 0.99);
-        cubeXform000.setTranslate(0 * size, 0, 0);
+        cubeXform000.setScale(sizeCubo * 0.99);
+        cubeXform000.setTranslate(0 * sizeCubo, 0, 0);
         cubeXform000.getChildren().add(cube000);
         parent.getChildren().add(cubeXform000);
 
@@ -95,8 +90,8 @@ public class PantPrincipalController extends Controller implements Initializable
             Color.BLACK // Right
         });
         Xform cubeXform100 = new Xform();
-        cubeXform100.setScale(size * 0.99);
-        cubeXform100.setTranslate(1.05 * size, 0, 0);
+        cubeXform100.setScale(sizeCubo * 0.99);
+        cubeXform100.setTranslate(1.05 * sizeCubo, 50*0.99, 50*0.99);
         cubeXform100.getChildren().add(cube100);
         parent.getChildren().add(cubeXform100);
 
@@ -109,8 +104,8 @@ public class PantPrincipalController extends Controller implements Initializable
             Color.YELLOW // Right
         });
         Xform cubeXform200 = new Xform();
-        cubeXform200.setScale(size * 0.99);
-        cubeXform200.setTranslate(2.10 * size, 0, 0);
+        cubeXform200.setScale(sizeCubo * 0.99);
+        cubeXform200.setTranslate(2.10 * sizeCubo, 0, 0);
         cubeXform200.getChildren().add(cube200);
         parent.getChildren().add(cubeXform200);
 
