@@ -9,24 +9,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import cuborubiks.CuboRubiks;
 import cuborubiks.controller.Controller;
-import cuborubiks.controller.PantInicioController;
 import javafx.scene.layout.AnchorPane;
 
 public class FlowController {
@@ -91,7 +86,7 @@ public class FlowController {
 
     public void goMain() {
         try {
-            this.mainStage.setScene(new Scene(FXMLLoader.load(CuboRubiks.class.getResource("view/PantPrincipal.fxml"), this.idioma),1024,768,true));
+            this.mainStage.setScene(new Scene(FXMLLoader.load(CuboRubiks.class.getResource("view/PantPrincipal.fxml"), this.idioma),1000,650,true));
             this.mainStage.setTitle("Cubo Rubiks - KF");
             this.mainStage.getIcons().add(new Image("cuborubiks/resources/icono.png"));
             this.mainStage.show();

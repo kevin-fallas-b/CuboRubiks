@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane id="pantPrincipal" fx:id="bpPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cuborubiks.controller.PantPrincipalController">
+<BorderPane id="pantPrincipal" fx:id="bpPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cuborubiks.controller.PantPrincipalController">
    <bottom>
-      <AnchorPane fx:id="apBottom" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="apBottom" maxHeight="200.0" maxWidth="1000.0" minHeight="200.0" minWidth="1000.0" prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" layoutX="33.0" layoutY="50.0" prefHeight="200.0" prefWidth="1000.0" spacing="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="PantallaPrincipal">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <children>
+                        <Label text="Giros:" />
+                        <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Derecha" />
+                        <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Izquierda" />
+                        <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Abajo" />
+                        <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Arriba" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="PantallaPrincipal">
+                     <children>
+                        <Label text="Opciones:" />
+                        <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Historial " />
+                        <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Resolver" />
+                        <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Guardar y Salir" />
+                        <JFXButton buttonType="RAISED" styleClass="PantallaPrincipal" text="Salir " />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children></AnchorPane>
    </bottom>
    <center>
-      <AnchorPane fx:id="apCentro" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="apCentro" maxHeight="450.0" maxWidth="1000.0" minHeight="450.0" minWidth="1000.0" prefHeight="450.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

@@ -11,6 +11,9 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
 /**
+ * clase que obtuve de https://stackoverflow.com/revisions/34005357/2, esta clase lo unico que hace es crearme los objetos que me sirven para
+ * marcar los ejes en la pantalla
+ * 
  * A class summarizing simple coordinate axes. 
  * Derived from MoleculeSampleApp from
  * http://docs.oracle.com/javafx/8/3d_graphics/sampleapp.htm

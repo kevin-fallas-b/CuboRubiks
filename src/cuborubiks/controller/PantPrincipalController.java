@@ -7,7 +7,6 @@ package cuborubiks.controller;
 
 import cuborubiks.model.Cubo;
 import cuborubiks.util.CoordinateAxes;
-import cuborubiks.util.FlowController;
 import cuborubiks.util.Viewer;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,12 +16,10 @@ import javafx.scene.Group;
 import cuborubiks.util.Xform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -46,18 +43,18 @@ public class PantPrincipalController extends Controller implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
         Group root = new Group();
         root.setDepthTest(DepthTest.ENABLE);
-
         Xform world = new Xform();
         root.getChildren().add(world);
-
         CoordinateAxes coordinateAxes = new CoordinateAxes();
         world.getChildren().addAll(coordinateAxes.get());
-
+        //crea los cubos que se ven en pantalla, no es final, ahorita es solo para probar, recibe parent como parametro
         buildSceneGaph(world);
-        SubScene subsc=new SubScene(root,1000,500,true,javafx.scene.SceneAntialiasing.BALANCED);
-        subsc.setFill(Color.GREY);
-        Viewer viewer = new Viewer(subsc, root);
-        bpPrincipal.setCenter(subsc);
+        //se utiliza SubScene ya que se puede incluir dentro del BorderPane
+        SubScene subScene=new SubScene(root,1024,450,true,javafx.scene.SceneAntialiasing.BALANCED);
+        subScene.setFill(Color.GREY);
+        //viewer le agrega camara y control de camara al subscene
+        Viewer viewer = new Viewer(subScene, root);
+        bpPrincipal.setCenter(subScene);
     }
 
     @Override
@@ -77,7 +74,7 @@ public class PantPrincipalController extends Controller implements Initializable
         });
         Xform cubeXform000 = new Xform();
         cubeXform000.setScale(sizeCubo * 0.99);
-        cubeXform000.setTranslate(0 * sizeCubo, 0, 0);
+        cubeXform000.setTranslate(-1.65 * sizeCubo, 0, 0);
         cubeXform000.getChildren().add(cube000);
         parent.getChildren().add(cubeXform000);
 
@@ -91,7 +88,7 @@ public class PantPrincipalController extends Controller implements Initializable
         });
         Xform cubeXform100 = new Xform();
         cubeXform100.setScale(sizeCubo * 0.99);
-        cubeXform100.setTranslate(1.05 * sizeCubo, 50*0.99, 50*0.99);
+        cubeXform100.setTranslate(-0.50 * sizeCubo, 0, 0);
         cubeXform100.getChildren().add(cube100);
         parent.getChildren().add(cubeXform100);
 
@@ -105,7 +102,7 @@ public class PantPrincipalController extends Controller implements Initializable
         });
         Xform cubeXform200 = new Xform();
         cubeXform200.setScale(sizeCubo * 0.99);
-        cubeXform200.setTranslate(2.10 * sizeCubo, 0, 0);
+        cubeXform200.setTranslate(0.65 * sizeCubo, 0, 0);
         cubeXform200.getChildren().add(cube200);
         parent.getChildren().add(cubeXform200);
 
