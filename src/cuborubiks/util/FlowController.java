@@ -92,6 +92,9 @@ public class FlowController {
             this.mainStage.getIcons().add(new Image("cuborubiks/resources/icono.png"));
             this.mainStage.show();
             this.mainStage.setResizable(false);
+            this.mainStage.setOnCloseRequest((event) -> {
+            PantPrincipalController.timer.cancel();
+        });
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(FlowController.class.getName()).log(Level.SEVERE, "Error inicializando la vista base.", ex);
         }
@@ -132,9 +135,7 @@ public class FlowController {
             default:
                 break;
         }
-        this.mainStage.setOnCloseRequest((event) -> {
-            PantPrincipalController.timer.cancel();
-        });
+        
     }
 
     public void goViewInStage(String viewName, Stage stage) {

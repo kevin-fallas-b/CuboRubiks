@@ -6,6 +6,7 @@
 package cuborubiks.model;
 
 import java.util.Date;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -74,14 +75,27 @@ public class CuboGrande {
         if (aux == null) {
             movimientos = movNuevo;
         } else {
-            while (aux != null) {
+            while (aux.getmSig() != null) {
                 aux = aux.getmSig();
             }
             aux.setmSig(movNuevo);
         }
         //girar cubo
+        System.out.println("moviendo cubo con direccion: " + direccion);
+        CuboPeq auxCubo[][] = new CuboPeq[3][3];
         switch (direccion) {
             case "r":
+                for (int i = 0; i < 3; i++) {
+                    for (int k = 0; k < 3; k++) {
+                        cubo[2][k][i] = auxCubo[i][2 - k];
+                        cubo[2][k][i] = null;
+                    }
+                }
+                for (int i = 0; i < 3; i++) {
+                    for (int k = 0; k < 3; k++) {
+                        cubo[2][k][i] = auxCubo[k][i];
+                    }
+                }
                 break;
             case "ri":
                 break;

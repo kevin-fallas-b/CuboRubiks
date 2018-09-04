@@ -33,7 +33,7 @@ public class PantHistorialController extends Controller implements Initializable
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        llenar();
     }
 
     @Override
@@ -45,6 +45,7 @@ public class PantHistorialController extends Controller implements Initializable
         while(aux!=null){
             Label label = new Label();
             label.setText(aux.getDireccion());
+            vboxMovimientos.getChildren().add(label);
             aux=aux.getmSig();
         }
     }

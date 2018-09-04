@@ -24,6 +24,7 @@ import javafx.scene.shape.VertexFormat;
 /*
 Clase cubo que representa un cubo pequeno*/
 public class CuboPeq {
+
     private Integer posicion; //guardo la posicio para mas adelante tener facilidad a la hora de hace un movimiento
     private Color colorLado[] = new Color[6];
 
@@ -36,37 +37,50 @@ public class CuboPeq {
         4=derecha
         5=atras
      */
-    public CuboPeq(){
-        
+    public CuboPeq() {
+
     }
-    public CuboPeq(Integer posicion, Double posX, Double posY, Double posZ){
+
+    public CuboPeq(Integer posicion, Double posX, Double posY, Double posZ) {
         // esta funcion me agrega un cubo a la pantalla, lo que hace es llamar funciones internas que
         // fueron importadas
-        int sizeCubo=50;//variable local que no cambia pero la uso para ser mas ordenado
-        
-        Node cube = createInterno(new Color[]{
-            Color.RED, // Front
-            Color.ORANGE, // Back
-            Color.YELLOW, // Up 
-            Color.WHITE, // Down 
-            Color.BLUE, // Left 
-            Color.GREEN // Right
-        });
+        int sizeCubo = 50;//variable local que no cambia pero la uso para ser mas ordenado
+        Node cube;
+        if (posicion < 9) {
+             cube = createInterno(new Color[]{
+                Color.RED, // Front
+                Color.ORANGE, // Back
+                Color.YELLOW, // Up 
+                Color.WHITE, // Down 
+                Color.BLUE, // Left 
+                Color.GREEN // Right
+            });
+        } else {
+            cube = createInterno(new Color[]{
+                Color.WHITE, // Front
+                Color.BLUE, // Back
+                Color.WHITE, // Up 
+                Color.GREEN, // Down 
+                Color.BLACK, // Left 
+                Color.YELLOW // Right
+            });
+
+        }
         Xform cubeXform000 = new Xform();
         cubeXform000.setScale(sizeCubo * 0.99);//tammano del cubo
-        cubeXform000.setTranslate(posX * sizeCubo, posY*sizeCubo, posZ*sizeCubo);//posicion del cubo
+        cubeXform000.setTranslate(posX * sizeCubo, posY * sizeCubo, posZ * sizeCubo);//posicion del cubo
         cubeXform000.getChildren().add(cube);
         PantPrincipalController.world.getChildren().add(cubeXform000);//agregar cubo a pantalla
     }
-    
-    public void setPosicion(Integer pos){
-        this.posicion=pos;
+
+    public void setPosicion(Integer pos) {
+        this.posicion = pos;
     }
-    public Integer getPosicion(){
+
+    public Integer getPosicion() {
         return posicion;
     }
-    
-    
+
     //creacion del objeto 3d
     /**
      * Creates a new unit cube, where the sides have the colors from the given
@@ -76,8 +90,7 @@ public class CuboPeq {
      * @param colors The colors
      * @return The color cube
      */
-    
-    public static Node createInterno(Color colors[]) {//se llamaba create, para mantenerme con OOP lo voy a hacer interno
+    public Node createInterno(Color colors[]) {//se llamaba create, para mantenerme con OOP lo voy a hacer interno
         Point3D points[] = new Point3D[8];
         for (int i = 0; i < 8; i++) {
             double x = (i & 0x1) == 0 ? 0.0 : 1.0;
@@ -119,7 +132,7 @@ public class CuboPeq {
         return group;
     }
 
-    private static TriangleMesh createPlane( Point3D p0, Point3D p1, Point3D p2, Point3D p3, Point3D normal) {
+    private static TriangleMesh createPlane(Point3D p0, Point3D p1, Point3D p2, Point3D p3, Point3D normal) {
         TriangleMesh mesh = new TriangleMesh();
         mesh.setVertexFormat(VertexFormat.POINT_NORMAL_TEXCOORD);
         mesh.getPoints().addAll(new float[]{
@@ -157,6 +170,4 @@ public class CuboPeq {
         return meshView;
     }
 
-    
- 
 }

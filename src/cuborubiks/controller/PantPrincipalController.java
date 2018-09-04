@@ -30,6 +30,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.scene.Camera;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -65,6 +67,13 @@ public class PantPrincipalController extends Controller implements Initializable
     private Label lblTiempo;
     @FXML
     private JFXButton btnPausar;
+    @FXML
+    private VBox vBoxMoverCamara;
+    @FXML
+    private VBox vBoxOpciones;
+    @FXML
+    private HBox hBoxMoverCamara;
+
     private Group root = new Group();
     public static Xform world = new Xform();
     //se utiliza SubScene ya que se puede incluir dentro del BorderPane
@@ -72,6 +81,32 @@ public class PantPrincipalController extends Controller implements Initializable
     public static CuboGrande cubo = new CuboGrande();
     public static Timer timer = new Timer();
     private Boolean pausa = false;
+    @FXML
+    private JFXButton btnAyuda;
+    @FXML
+    private JFXButton btnMovimientoR;
+    @FXML
+    private JFXButton btnMovimientoD;
+    @FXML
+    private JFXButton btnMovimientoRi;
+    @FXML
+    private JFXButton btnMovimientoDi;
+    @FXML
+    private JFXButton btnMovimientoL;
+    @FXML
+    private JFXButton btnMovimientoF;
+    @FXML
+    private JFXButton btnMovimientoLi;
+    @FXML
+    private JFXButton btnMovimientoFi;
+    @FXML
+    private JFXButton btnMovimientoB;
+    @FXML
+    private JFXButton btnMovimientoU;
+    @FXML
+    private JFXButton btnMovimientoBi;
+    @FXML
+    private JFXButton btnMovimientoUi;
 
     /**
      * Initializes the controller class.
@@ -126,7 +161,7 @@ public class PantPrincipalController extends Controller implements Initializable
 
     @FXML
     private void presionarBtnHistorial(ActionEvent event) {
-        FlowController.getInstance().goViewInWindowModal("PantHistorial", (Stage)btnHistorial.getScene().getWindow(), false);
+        FlowController.getInstance().goViewInWindowModal("PantHistorial", (Stage) btnHistorial.getScene().getWindow(), false);
     }
 
     @FXML
@@ -150,7 +185,85 @@ public class PantPrincipalController extends Controller implements Initializable
     @FXML
     private void presionarBtnPausar(ActionEvent event) {
         //solamente se encarga de cambiar pausa, el metodo iniciar tiempo se encarga de no seguir
-        pausa = !pausa;
+        //pausa = !pausa;
+        if (pausa == false) {
+            pausa = true;
+            vBoxMoverCamara.setDisable(true);
+            vBoxOpciones.setDisable(true);
+            hBoxMoverCamara.setDisable(true);
+            btnAyuda.setDisable(true);
+        } else {
+            pausa = false;
+            vBoxMoverCamara.setDisable(false);
+            vBoxOpciones.setDisable(false);
+            hBoxMoverCamara.setDisable(false);
+            btnAyuda.setDisable(false);
+        }
+    }
+
+    @FXML
+    private void presionarBtnAyuda(ActionEvent event) {
+    }
+
+    @FXML
+    private void presionarBtnMovimientoR(ActionEvent event) {
+        cubo.mover("r");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoD(ActionEvent event) {
+        cubo.mover("d");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoRi(ActionEvent event) {
+        cubo.mover("ri");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoDi(ActionEvent event) {
+        cubo.mover("di");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoL(ActionEvent event) {
+        cubo.mover("l");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoF(ActionEvent event) {
+        cubo.mover("f");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoLi(ActionEvent event) {
+        cubo.mover("li");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoFi(ActionEvent event) {
+        cubo.mover("fi");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoB(ActionEvent event) {
+        cubo.mover("b");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoU(ActionEvent event) {
+        cubo.mover("u");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoBi(ActionEvent event) {
+        cubo.mover("bi");
+    }
+
+    @FXML
+    private void presionarBtnMovimientoUi(ActionEvent event) {
+        cubo.mover("ui");
+      
     }
 
     private void iniciarTiempo() {

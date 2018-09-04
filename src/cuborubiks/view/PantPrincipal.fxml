@@ -11,7 +11,7 @@
    <bottom>
       <AnchorPane fx:id="apBottom" maxHeight="200.0" maxWidth="1000.0" minHeight="200.0" minWidth="1000.0" prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" layoutX="38.0" layoutY="4.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="PantallaPrincipal">
+            <VBox fx:id="vBoxMoverCamara" alignment="TOP_CENTER" layoutX="38.0" layoutY="4.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="PantallaPrincipal">
                <children>
                   <Label text="Girar Camara:" />
                   <JFXButton fx:id="btnGCamDerecha" buttonType="RAISED" onAction="#presionarBtnGCamDerecha" styleClass="PantallaPrincipal" text="Derecha" />
@@ -20,7 +20,7 @@
                   <JFXButton fx:id="btnGCamArriba" buttonType="RAISED" onAction="#presionarBtnGCamArriba" styleClass="PantallaPrincipal" text="Arriba" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" layoutX="886.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="PantallaPrincipal">
+            <VBox fx:id="vBoxOpciones" alignment="TOP_CENTER" layoutX="886.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="PantallaPrincipal">
                <children>
                   <Label text="Opciones:" />
                   <JFXButton fx:id="btnHistorial" buttonType="RAISED" onAction="#presionarBtnHistorial" styleClass="PantallaPrincipal" text="Historial " />
@@ -30,49 +30,49 @@
                </children>
             </VBox>
             <Label fx:id="lblTiempo" layoutX="461.0" layoutY="14.0" text="Tiempo: 00:00" />
-            <HBox layoutX="354.0" layoutY="86.0" prefHeight="100.0" prefWidth="292.0" spacing="15.0">
+            <HBox fx:id="hBoxMoverCamara" layoutX="354.0" layoutY="86.0" prefHeight="100.0" prefWidth="292.0" spacing="15.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="35.0" spacing="20.0">
                      <children>
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="R" />
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="D" />
+                        <JFXButton fx:id="btnMovimientoR" onAction="#presionarBtnMovimientoR" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="R" />
+                        <JFXButton fx:id="btnMovimientoD" onAction="#presionarBtnMovimientoD" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="D" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="35.0" spacing="20.0">
                      <children>
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Ri" />
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Di" />
+                        <JFXButton fx:id="btnMovimientoRi" onAction="#presionarBtnMovimientoRi" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Ri" />
+                        <JFXButton fx:id="btnMovimientoDi" onAction="#presionarBtnMovimientoDi" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Di" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="35.0" spacing="20.0">
                      <children>
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="L" />
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="F" />
+                        <JFXButton fx:id="btnMovimientoL" onAction="#presionarBtnMovimientoL" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="L" />
+                        <JFXButton fx:id="btnMovimientoF" onAction="#presionarBtnMovimientoF" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="F" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="35.0" spacing="20.0">
                      <children>
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Li" />
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Fi" />
+                        <JFXButton fx:id="btnMovimientoLi" onAction="#presionarBtnMovimientoLi" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Li" />
+                        <JFXButton fx:id="btnMovimientoFi" onAction="#presionarBtnMovimientoFi" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Fi" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="35.0" spacing="20.0">
                      <children>
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="B" />
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="U" />
+                        <JFXButton fx:id="btnMovimientoB" onAction="#presionarBtnMovimientoB" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="B" />
+                        <JFXButton fx:id="btnMovimientoU" onAction="#presionarBtnMovimientoU" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="U" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="35.0" spacing="20.0">
                      <children>
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Bi" />
-                        <JFXButton prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Ui" />
+                        <JFXButton fx:id="btnMovimientoBi" onAction="#presionarBtnMovimientoBi" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Bi" />
+                        <JFXButton fx:id="btnMovimientoUi" onAction="#presionarBtnMovimientoUi" prefHeight="30.0" prefWidth="35.0" styleClass="PantallaPrincipal" text="Ui" />
                      </children>
                   </VBox>
                </children>
             </HBox>
             <Label layoutX="466.0" layoutY="78.0" text="Movimientos:" />
             <JFXButton fx:id="btnPausar" layoutX="554.0" layoutY="10.0" onAction="#presionarBtnPausar" styleClass="PantallaPrincipal" text="Pausar" />
-            <JFXButton layoutX="658.0" layoutY="161.0" styleClass="PantallaPrincipal" text="Ayuda" />
+            <JFXButton fx:id="btnAyuda" layoutX="658.0" layoutY="161.0" onAction="#presionarBtnAyuda" styleClass="PantallaPrincipal" text="Ayuda" />
          </children></AnchorPane>
    </bottom>
    <center>
