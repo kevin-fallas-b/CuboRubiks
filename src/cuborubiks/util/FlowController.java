@@ -22,6 +22,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import cuborubiks.CuboRubiks;
 import cuborubiks.controller.Controller;
+import cuborubiks.controller.PantPrincipalController;
 import javafx.scene.layout.AnchorPane;
 
 public class FlowController {
@@ -131,6 +132,9 @@ public class FlowController {
             default:
                 break;
         }
+        this.mainStage.setOnCloseRequest((event) -> {
+            PantPrincipalController.timer.cancel();
+        });
     }
 
     public void goViewInStage(String viewName, Stage stage) {
@@ -229,6 +233,7 @@ public class FlowController {
 
     public void salir() {
         this.mainStage.close();
+        PantPrincipalController.timer.cancel();
     }
     public Stage getMainStage(){
         return this.mainStage;

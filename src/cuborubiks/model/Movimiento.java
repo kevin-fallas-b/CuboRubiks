@@ -13,7 +13,6 @@ package cuborubiks.model;
 public class Movimiento {
 
     private String direccion;
-    private Movimiento mAnt;
     private Movimiento mSig;
 
     public String getDireccion() {
@@ -22,14 +21,6 @@ public class Movimiento {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public Movimiento getmAnt() {
-        return mAnt;
-    }
-
-    public void setmAnt(Movimiento mAnt) {
-        this.mAnt = mAnt;
     }
 
     public Movimiento getmSig() {

@@ -5,8 +5,11 @@
  */
 package cuborubiks.controller;
 
-import cuborubiks.model.Cubo;
+import com.jfoenix.controls.JFXButton;
+import cuborubiks.model.CuboGrande;
+import cuborubiks.model.CuboPeq;
 import cuborubiks.util.CoordinateAxes;
+import cuborubiks.util.FlowController;
 import cuborubiks.util.Viewer;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,12 +17,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import cuborubiks.util.Xform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.SubScene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import cuborubiks.util.Mensaje;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
+import javafx.scene.Camera;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -34,116 +45,138 @@ public class PantPrincipalController extends Controller implements Initializable
     private AnchorPane apCentro;
     @FXML
     private AnchorPane apBottom;
-
-    Cubo cubo[][][] = new Cubo[3][3][3];
-
+    @FXML
+    private JFXButton btnGCamDerecha;
+    @FXML
+    private JFXButton btnGCamIzquierda;
+    @FXML
+    private JFXButton btnGCamAbajo;
+    @FXML
+    private JFXButton btnGCamArriba;
+    @FXML
+    private JFXButton btnHistorial;
+    @FXML
+    private JFXButton btnResolver;
+    @FXML
+    private JFXButton btnGuardar;
+    @FXML
+    private JFXButton btnSalir;
+    @FXML
+    private Label lblTiempo;
+    @FXML
+    private JFXButton btnPausar;
+    private Group root = new Group();
     public static Xform world = new Xform();
+    //se utiliza SubScene ya que se puede incluir dentro del BorderPane
+    private SubScene subScene = new SubScene(root, 1024, 450, true, javafx.scene.SceneAntialiasing.BALANCED);
+    public static CuboGrande cubo = new CuboGrande();
+    public static Timer timer = new Timer();
+    private Boolean pausa = false;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Group root = new Group();
         root.setDepthTest(DepthTest.ENABLE);
         root.getChildren().add(world);
         CoordinateAxes coordinateAxes = new CoordinateAxes();
         world.getChildren().addAll(coordinateAxes.get());
-        crearCubo();
-        //crea los cubos que se ven en pantalla, no es final, ahorita es solo para probar, recibe parent como parametro
-        //buildSceneGaph(world);
-        //se utiliza SubScene ya que se puede incluir dentro del BorderPane
-        SubScene subScene = new SubScene(root, 1024, 450, true, javafx.scene.SceneAntialiasing.BALANCED);
+        cubo.crearCubo();
         subScene.setFill(Color.GREY);
         //viewer le agrega camara y control de camara al subscene
         Viewer viewer = new Viewer(subScene, root);
         bpPrincipal.setCenter(subScene);
+        iniciarTiempo();
     }
 
     @Override
     public void initialize() {
     }
 
-    private void buildSceneGaph(Group parent) {
-        double sizeCubo = 50;
+    @FXML
+    private void presionarBtnGCamDerecha(ActionEvent event1) {
+        //disminuir X en 180,
+        System.out.println("moviendo camara a la derecha");
+        Camera camera = subScene.getCamera();
+        Xform cameraXform = new Xform();
+        Xform cameraXform2 = new Xform();
+        Xform cameraXform3 = new Xform();
+        root.getChildren().add(cameraXform);
+        cameraXform.getChildren().add(cameraXform2);
+        cameraXform2.getChildren().add(cameraXform3);
+        cameraXform3.getChildren().add(camera);
 
-        Node cube000 = Cubo.createInterno(new Color[]{
-            Color.RED, // Front
-            Color.BLUE, // Back
-            Color.GREEN, // Up 
-            Color.WHITE, // Down 
-            Color.BLUE, // Left 
-            Color.BLACK // Right
-        });
-        Xform cubeXform000 = new Xform();
-        cubeXform000.setScale(sizeCubo * 0.99);
-        cubeXform000.setTranslate(-1.65 * sizeCubo, 0, 0);
-        cubeXform000.getChildren().add(cube000);
-        parent.getChildren().add(cubeXform000);
-
-        Node cube100 = Cubo.createInterno(new Color[]{
-            Color.RED, // Front
-            Color.BLUE, // Back
-            Color.GREEN, // Up 
-            Color.WHITE, // Down 
-            Color.BLACK, // Left 
-            Color.BLACK // Right
-        });
-        Xform cubeXform100 = new Xform();
-        cubeXform100.setScale(sizeCubo * 0.99);
-        cubeXform100.setTranslate(-0.50 * sizeCubo, 0, 0);
-        cubeXform100.getChildren().add(cube100);
-        parent.getChildren().add(cubeXform100);
-
-        Node cube200 = Cubo.createInterno(new Color[]{
-            Color.RED, // Front
-            Color.BLUE, // Back
-            Color.GREEN, // Up 
-            Color.WHITE, // Down 
-            Color.BLACK, // Left 
-            Color.YELLOW // Right
-        });
-        Xform cubeXform200 = new Xform();
-        cubeXform200.setScale(sizeCubo * 0.99);
-        cubeXform200.setTranslate(0.65 * sizeCubo, 0, 0);
-        cubeXform200.getChildren().add(cube200);
-        parent.getChildren().add(cubeXform200);
-
-        /*cubo mio
-        Node cube500 = Cubo.create(new Color[] { 
-            Color.RED,    // Front
-            Color.BLUE,  // Back
-            Color.BLACK,  // Up 
-            Color.WHITE,  // Down 
-            Color.BLACK,  // Left 
-            Color.GREEN   // Right
-        });
-        Xform cubeXform500 = new Xform();
-        cubeXform500.setScale(size * 0.99);
-        cubeXform500.setTranslate(3 * size,0,0);
-        cubeXform500.getChildren().add(cube500);
-        parent.getChildren().add(cubeXform500);*/
+        //btnGCamDerecha.setOnAction((event) -> {
+        //event.fireEvent(camera, new MouseDragEvent(0,0,0 ,0, MouseButton.PRIMARY, 1, false, false, false, false, true, false, false, false, false, new PickResult(), btnGCamDerecha));
+        //});
     }
 
-    private void crearCubo() {
-        Integer cont = 0;
-        Double posX = -1.50;
-        Double posY = -1.50;
-        Double posZ = -1.50;
-        for (int i = 0; i < 3; i++) {
-            posY = -1.50;
-            for (int k = 0; k < 3; k++) {
-                for (int j = 0; j < 3; j++) {
-                    Cubo cub = new Cubo(cont, posX, posY, posZ);
-                    cont++;
-                    cubo[i][k][j] = cub;
-                    posX += 1.05;
-                }
-                posY += 1.05;
-                posX = -1.50;
-            }
-            posZ += 1.05;
+    @FXML
+    private void presionarBtnGCamIzquierda(ActionEvent event) {
+    }
 
+    @FXML
+    private void presionarBtnGCamAbajo(ActionEvent event) {
+    }
+
+    @FXML
+    private void presionarBtnGCamArriba(ActionEvent event) {
+    }
+
+    @FXML
+    private void presionarBtnHistorial(ActionEvent event) {
+        FlowController.getInstance().goViewInWindowModal("PantHistorial", (Stage)btnHistorial.getScene().getWindow(), false);
+    }
+
+    @FXML
+    private void presionarBtnResolver(ActionEvent event) {
+    }
+
+    @FXML
+    private void presionarBtnGuardar(ActionEvent event) {
+    }
+
+    @FXML
+    private void presionarBtnSalir(ActionEvent event) {
+        if (new Mensaje().showConfirmation("Salir", getStage(), "Usted esta a punto de salir del programa.\n\nLos datos no guardados se perderan. Desea Continuar?")) {
+            {
+                timer.cancel();
+                FlowController.getInstance().salir();
+            }
         }
     }
+
+    @FXML
+    private void presionarBtnPausar(ActionEvent event) {
+        //solamente se encarga de cambiar pausa, el metodo iniciar tiempo se encarga de no seguir
+        pausa = !pausa;
+    }
+
+    private void iniciarTiempo() {
+        TimerTask task = new TimerTask() {
+            Integer tiempo = cubo.getTiempo();
+            Integer minutos = tiempo / 60;
+            Integer segundos = tiempo % 60;
+
+            @Override
+            public void run() {
+                if (segundos < 60) {
+                    if (pausa == false) {
+                        segundos++;
+                    }
+                } else {
+                    segundos = 00;
+                    minutos++;
+                }
+                cubo.setTiempo(minutos * 60 + segundos);
+                Platform.runLater(() -> lblTiempo.setText("Tiempo: " + minutos + ":" + segundos));
+            }
+        ;
+
+        };
+         timer.scheduleAtFixedRate(task, 1000, 1000);
+
+    }
+
 }

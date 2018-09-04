@@ -23,7 +23,7 @@ import javafx.scene.shape.VertexFormat;
  */
 /*
 Clase cubo que representa un cubo pequeno*/
-public class Cubo {
+public class CuboPeq {
     private Integer posicion; //guardo la posicio para mas adelante tener facilidad a la hora de hace un movimiento
     private Color colorLado[] = new Color[6];
 
@@ -36,10 +36,10 @@ public class Cubo {
         4=derecha
         5=atras
      */
-    public Cubo(){
+    public CuboPeq(){
         
     }
-    public Cubo(Integer posicion, Double posX, Double posY, Double posZ){
+    public CuboPeq(Integer posicion, Double posX, Double posY, Double posZ){
         // esta funcion me agrega un cubo a la pantalla, lo que hace es llamar funciones internas que
         // fueron importadas
         int sizeCubo=50;//variable local que no cambia pero la uso para ser mas ordenado
