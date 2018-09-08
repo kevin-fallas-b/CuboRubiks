@@ -33,11 +33,12 @@ public class PantHistorialController extends Controller implements Initializable
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        llenar();
+        
     }
 
     @Override
     public void initialize() {
+        llenar();
     }
     private void llenar(){
         vboxMovimientos.getChildren().clear();

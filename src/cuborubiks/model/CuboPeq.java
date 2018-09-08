@@ -25,8 +25,12 @@ import javafx.scene.shape.VertexFormat;
 Clase cubo que representa un cubo pequeno*/
 public class CuboPeq {
 
-    private Integer posicion; //guardo la posicio para mas adelante tener facilidad a la hora de hace un movimiento
+    private Double posX; //guardo la posicio para mas adelante tener facilidad a la hora de hace un movimiento
+    private Double posY;
+    private Double posZ;
     private Color colorLado[] = new Color[6];
+    final int sizeCubo = 50;//variable local que no cambia pero la uso para ser mas ordenado
+    private Xform cubeXform000 = new Xform();
 
     /*
      vector que contiene el color de cada cara del cubo, recordar que cada pieza, sin importar si es centro o no tiene 6 lados
@@ -44,10 +48,12 @@ public class CuboPeq {
     public CuboPeq(Integer posicion, Double posX, Double posY, Double posZ) {
         // esta funcion me agrega un cubo a la pantalla, lo que hace es llamar funciones internas que
         // fueron importadas
-        int sizeCubo = 50;//variable local que no cambia pero la uso para ser mas ordenado
+        this.posX = posX;
+        this.posY = posY;
+        this.posZ = posZ;
         Node cube;
         if (posicion < 9) {
-             cube = createInterno(new Color[]{
+            cube = createInterno(new Color[]{
                 Color.RED, // Front
                 Color.ORANGE, // Back
                 Color.YELLOW, // Up 
@@ -66,19 +72,35 @@ public class CuboPeq {
             });
 
         }
-        Xform cubeXform000 = new Xform();
-        cubeXform000.setScale(sizeCubo * 0.99);//tammano del cubo
+
+        cubeXform000.setScale(sizeCubo * 1.00);//tammano del cubo
         cubeXform000.setTranslate(posX * sizeCubo, posY * sizeCubo, posZ * sizeCubo);//posicion del cubo
         cubeXform000.getChildren().add(cube);
         PantPrincipalController.world.getChildren().add(cubeXform000);//agregar cubo a pantalla
     }
 
-    public void setPosicion(Integer pos) {
-        this.posicion = pos;
+    public Double getPosX() {
+        return posX;
     }
 
-    public Integer getPosicion() {
-        return posicion;
+    public void setPosX(Double posX) {
+        this.posX = posX;
+    }
+
+    public Double getPosY() {
+        return posY;
+    }
+
+    public void setPosY(Double posY) {
+        this.posY = posY;
+    }
+
+    public Double getPosZ() {
+        return posZ;
+    }
+
+    public void setPosZ(Double posZ) {
+        this.posZ = posZ;
     }
 
     //creacion del objeto 3d
@@ -168,6 +190,16 @@ public class CuboPeq {
         MeshView meshView = new MeshView(mesh);
         meshView.setMaterial(material);
         return meshView;
+    }
+
+    public void moverCuboPeq(Double posX, Double posY, Double posZ) {
+        for(double i=this.posX;i>posX;i-=0.01) {
+            cubeXform000.setTranslate(i *sizeCubo, posY * sizeCubo, posZ * sizeCubo);
+            System.out.println("i: "+i );
+        }
+        this.posX = posX;
+        this.posY = posY;
+        this.posZ = posZ;
     }
 
 }

@@ -14,11 +14,11 @@ import javafx.scene.paint.Color;
  */
 public class CuboGrande {
 
-    CuboPeq cubo[][][] = new CuboPeq[3][3][3];
-    Date fecha;//fecha se utiliza para cuando se guarda la partida, caso contrario es NULL
-    String nombre;//solo se pide el nombre cuando se guarda la partida
-    Integer tiempo = 0;// guarda tiempo en segundos
-    Movimiento movimientos;//Lista enlazada que me lleva los movimientos realizados
+    public CuboPeq cubo[][][] = new CuboPeq[3][3][3];
+    private Date fecha;//fecha se utiliza para cuando se guarda la partida, caso contrario es NULL
+    private String nombre;//solo se pide el nombre cuando se guarda la partida
+    private Integer tiempo = 0;// guarda tiempo en segundos
+    private Movimiento movimientos;//Lista enlazada que me lleva los movimientos realizados
 
     public Date getFecha() {
         return fecha;
@@ -56,12 +56,12 @@ public class CuboGrande {
                     CuboPeq cub = new CuboPeq(cont, posX, posY, posZ);
                     cont++;
                     cubo[i][k][j] = cub;
-                    posX += 1.05;
+                    posX += 1.10;//05
                 }
-                posY += 1.05;
-                posX = -1.50;
+                posY += 1.10;//05
+                posX = -1.50;//50
             }
-            posZ += 1.05;
+            posZ += 1.10;//05
 
         }
     }
@@ -87,13 +87,11 @@ public class CuboGrande {
             case "r":
                 for (int i = 0; i < 3; i++) {
                     for (int k = 0; k < 3; k++) {
-                        cubo[2][k][i] = auxCubo[i][2 - k];
-                        cubo[2][k][i] = null;
-                    }
-                }
-                for (int i = 0; i < 3; i++) {
-                    for (int k = 0; k < 3; k++) {
-                        cubo[2][k][i] = auxCubo[k][i];
+                        System.out.println("cubo:[2]["+k+"]["+ i+"]    pos:   "+cubo[2][k][i].getPosY());
+                        
+                        /*cubo[2][k][i] = auxCubo[i][2 - k];
+                        cubo[2][i][2-k].movenrCuboPeq(cubo[2][k][i].getPosX(), cubo[2][k][i].getPosY(), cubo[2][k][i].getPosZ());
+                        cubo[2][k][i].moverCuboPeq(auxCubo[i][2-k].getPosX(), auxCubo[i][2-k].getPosY(), auxCubo[i][2-k].getPosZ());*/
                     }
                 }
                 break;
@@ -129,5 +127,8 @@ public class CuboGrande {
     public void setMovimientos(Movimiento movimientos) {
         this.movimientos = movimientos;
     }
-
+    
+    public CuboPeq getCuboPeq(Integer x, Integer y, Integer z){
+        return cubo[x][y][z];
+    }
 }

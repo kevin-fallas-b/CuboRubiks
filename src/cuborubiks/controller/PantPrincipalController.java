@@ -258,8 +258,12 @@ public class PantPrincipalController extends Controller implements Initializable
     @FXML
     private void presionarBtnMovimientoBi(ActionEvent event) {
         cubo.mover("bi");
+        CuboPeq mos;
+        mos= cubo.getCuboPeq(0, 0, 0);
+        mos.moverCuboPeq(mos.getPosX()-1.00, mos.getPosY(), mos.getPosZ());
     }
 
+    
     @FXML
     private void presionarBtnMovimientoUi(ActionEvent event) {
         cubo.mover("ui");
