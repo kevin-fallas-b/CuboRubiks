@@ -70,9 +70,10 @@
                   </VBox>
                </children>
             </HBox>
-            <Label layoutX="466.0" layoutY="78.0" text="Movimientos:" />
+            <Label fx:id="lblMovimientos" layoutX="466.0" layoutY="78.0" text="Movimientos:" />
             <JFXButton fx:id="btnPausar" layoutX="554.0" layoutY="10.0" onAction="#presionarBtnPausar" styleClass="PantallaPrincipal" text="Pausar" />
             <JFXButton fx:id="btnAyuda" layoutX="658.0" layoutY="161.0" onAction="#presionarBtnAyuda" styleClass="PantallaPrincipal" text="Ayuda" />
+            <Label fx:id="lblJuegoPausado" layoutX="457.0" layoutY="46.0" text="Juego Pausado!" />
          </children></AnchorPane>
    </bottom>
    <center>

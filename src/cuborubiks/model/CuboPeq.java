@@ -7,6 +7,8 @@ package cuborubiks.model;
 
 import cuborubiks.controller.PantPrincipalController;
 import cuborubiks.util.Xform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -16,6 +18,7 @@ import javafx.scene.shape.Mesh;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.shape.VertexFormat;
+import javafx.scene.transform.Rotate;
 
 /**
  *
@@ -193,13 +196,20 @@ public class CuboPeq {
     }
 
     public void moverCuboPeq(Double posX, Double posY, Double posZ) {
-        for(double i=this.posX;i>posX;i-=0.01) {
-            cubeXform000.setTranslate(i *sizeCubo, posY * sizeCubo, posZ * sizeCubo);
-            System.out.println("i: "+i );
+        for (double i = this.posX; i > posX; i -= 0.01) {
+            cubeXform000.setTranslate(i * sizeCubo, posY * sizeCubo, posZ * sizeCubo);
+            System.out.println("i: " + i);
         }
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
     }
 
+    public void rotarCuboPeq() {
+        System.out.println("pos X: "+posX);
+        //cubeXform000.setRotationAxis(new Point3D(posX*sizeCubo,posY*sizeCubo,posZ*sizeCubo));
+        //cubeXform000.setr
+        cubeXform000.setRc(cubeXform000.getAngle() + 90.00,0.00,1.00,-0.00);
+        System.out.println("pos X: "+posX);
+    }
 }

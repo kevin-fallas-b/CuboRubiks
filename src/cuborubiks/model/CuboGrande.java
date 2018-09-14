@@ -87,11 +87,13 @@ public class CuboGrande {
             case "r":
                 for (int i = 0; i < 3; i++) {
                     for (int k = 0; k < 3; k++) {
-                        System.out.println("cubo:[2]["+k+"]["+ i+"]    pos:   "+cubo[2][k][i].getPosY());
-                        
-                        /*cubo[2][k][i] = auxCubo[i][2 - k];
-                        cubo[2][i][2-k].movenrCuboPeq(cubo[2][k][i].getPosX(), cubo[2][k][i].getPosY(), cubo[2][k][i].getPosZ());
-                        cubo[2][k][i].moverCuboPeq(auxCubo[i][2-k].getPosX(), auxCubo[i][2-k].getPosY(), auxCubo[i][2-k].getPosZ());*/
+                        //System.out.println("cubo:[2][" + k + "][" + i + "]    pos:   " + cubo[2][k][i].getPosY());
+                        //[profundidad][altura][lados], el 2 es el mas a la derecha, 
+                        //resumen, cubo es [z][y][x], el X esta al revez, es decir, 2 es el primero
+                         this.cubo[i][0][0].moverCuboPeq(this.cubo[i][0][0].getPosX()-1.00,this.cubo[i][0][0].getPosY(), this.cubo[i][0][0].getPosZ());
+                        //cubo[2][k][i] = auxCubo[i][2 - k];
+                        //cubo[2][i][2-k].movenrCuboPeq(cubo[2][k][i].getPosX(), cubo[2][k][i].getPosY(), cubo[2][k][i].getPosZ());
+                        //cubo[2][k][i].moverCuboPeq(auxCubo[i][2-k].getPosX(), auxCubo[i][2-k].getPosY(), auxCubo[i][2-k].getPosZ());
                     }
                 }
                 break;
@@ -127,8 +129,8 @@ public class CuboGrande {
     public void setMovimientos(Movimiento movimientos) {
         this.movimientos = movimientos;
     }
-    
-    public CuboPeq getCuboPeq(Integer x, Integer y, Integer z){
+
+    public CuboPeq getCuboPeq(Integer x, Integer y, Integer z) {
         return cubo[x][y][z];
     }
 }

@@ -107,6 +107,10 @@ public class PantPrincipalController extends Controller implements Initializable
     private JFXButton btnMovimientoBi;
     @FXML
     private JFXButton btnMovimientoUi;
+    @FXML
+    private Label lblJuegoPausado;
+    @FXML
+    private Label lblMovimientos;
 
     /**
      * Initializes the controller class.
@@ -114,6 +118,7 @@ public class PantPrincipalController extends Controller implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         root.setDepthTest(DepthTest.ENABLE);
+        lblJuegoPausado.setVisible(false);
         root.getChildren().add(world);
         CoordinateAxes coordinateAxes = new CoordinateAxes();
         world.getChildren().addAll(coordinateAxes.get());
@@ -188,16 +193,20 @@ public class PantPrincipalController extends Controller implements Initializable
         //pausa = !pausa;
         if (pausa == false) {
             pausa = true;
+            lblJuegoPausado.setVisible(true);
+            lblTiempo.setDisable(true);
+            lblMovimientos.setDisable(true);
             vBoxMoverCamara.setDisable(true);
             vBoxOpciones.setDisable(true);
             hBoxMoverCamara.setDisable(true);
-            btnAyuda.setDisable(true);
         } else {
             pausa = false;
+            lblTiempo.setDisable(false);
+            lblJuegoPausado.setVisible(false);
+            lblMovimientos.setDisable(false);
             vBoxMoverCamara.setDisable(false);
             vBoxOpciones.setDisable(false);
             hBoxMoverCamara.setDisable(false);
-            btnAyuda.setDisable(false);
         }
     }
 
@@ -259,15 +268,18 @@ public class PantPrincipalController extends Controller implements Initializable
     private void presionarBtnMovimientoBi(ActionEvent event) {
         cubo.mover("bi");
         CuboPeq mos;
-        mos= cubo.getCuboPeq(0, 0, 0);
-        mos.moverCuboPeq(mos.getPosX()-1.00, mos.getPosY(), mos.getPosZ());
+        mos = cubo.getCuboPeq(0, 1, 0);
+        mos.moverCuboPeq(mos.getPosX() - 1.00, mos.getPosY(), mos.getPosZ());
+
     }
 
-    
     @FXML
     private void presionarBtnMovimientoUi(ActionEvent event) {
         cubo.mover("ui");
-      
+        CuboPeq mos;
+        mos = cubo.getCuboPeq(0, 1, 0);
+        //mos.moverCuboPeq(mos.getPosX()-1.00, mos.getPosY(), mos.getPosZ());
+        mos.rotarCuboPeq();
     }
 
     private void iniciarTiempo() {
