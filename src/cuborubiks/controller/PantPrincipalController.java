@@ -19,7 +19,6 @@ import javafx.scene.Group;
 import cuborubiks.util.Xform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -267,19 +266,11 @@ public class PantPrincipalController extends Controller implements Initializable
     @FXML
     private void presionarBtnMovimientoBi(ActionEvent event) {
         cubo.mover("bi");
-        CuboPeq mos;
-        mos = cubo.getCuboPeq(0, 1, 0);
-        mos.moverCuboPeq(mos.getPosX() - 1.00, mos.getPosY(), mos.getPosZ());
-
     }
 
     @FXML
     private void presionarBtnMovimientoUi(ActionEvent event) {
         cubo.mover("ui");
-        CuboPeq mos;
-        mos = cubo.getCuboPeq(0, 1, 0);
-        //mos.moverCuboPeq(mos.getPosX()-1.00, mos.getPosY(), mos.getPosZ());
-        mos.rotarCuboPeq();
     }
 
     private void iniciarTiempo() {

@@ -7,8 +7,12 @@ package cuborubiks.model;
 
 import cuborubiks.controller.PantPrincipalController;
 import cuborubiks.util.Xform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -19,6 +23,7 @@ import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.shape.VertexFormat;
 import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 /**
  *
@@ -28,54 +33,39 @@ import javafx.scene.transform.Rotate;
 Clase cubo que representa un cubo pequeno*/
 public class CuboPeq {
 
-    private Double posX; //guardo la posicio para mas adelante tener facilidad a la hora de hace un movimiento
+    private Double posX; 
     private Double posY;
     private Double posZ;
-    private Color colorLado[] = new Color[6];
-    final int sizeCubo = 50;//variable local que no cambia pero la uso para ser mas ordenado
-    private Xform cubeXform000 = new Xform();
-
+    private Double angulo;
+    private Integer numCubo;
+    private Color colorLado[] = new Color[6];    
     /*
      vector que contiene el color de cada cara del cubo, recordar que cada pieza, sin importar si es centro o no tiene 6 lados
         0=frente
-        1=arriba
-        2=abajo
-        3=izquierda
+        1=atras
+        2=arriba
+        3=abajo
         4=derecha
-        5=atras
+        5=izquieda
      */
+
+    final int sizeCubo = 50;//variable local que no cambia pero la uso para ser mas ordenado
+    private Xform cubeXform000 = new Xform();
+
     public CuboPeq() {
 
     }
 
-    public CuboPeq(Integer posicion, Double posX, Double posY, Double posZ) {
+    public CuboPeq(Integer posicion, Double posX, Double posY, Double posZ, Color colores[]) {
         // esta funcion me agrega un cubo a la pantalla, lo que hace es llamar funciones internas que
         // fueron importadas
+        this.colorLado = colores;
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
+        this.angulo=0.00;
         Node cube;
-        if (posicion < 9) {
-            cube = createInterno(new Color[]{
-                Color.RED, // Front
-                Color.ORANGE, // Back
-                Color.YELLOW, // Up 
-                Color.WHITE, // Down 
-                Color.BLUE, // Left 
-                Color.GREEN // Right
-            });
-        } else {
-            cube = createInterno(new Color[]{
-                Color.WHITE, // Front
-                Color.BLUE, // Back
-                Color.WHITE, // Up 
-                Color.GREEN, // Down 
-                Color.BLACK, // Left 
-                Color.YELLOW // Right
-            });
-
-        }
-
+        cube = createInterno(colores);
         cubeXform000.setScale(sizeCubo * 1.00);//tammano del cubo
         cubeXform000.setTranslate(posX * sizeCubo, posY * sizeCubo, posZ * sizeCubo);//posicion del cubo
         cubeXform000.getChildren().add(cube);
@@ -153,7 +143,7 @@ public class CuboPeq {
         group.getChildren().add(createPlane(meshD, colors[3]));
         group.getChildren().add(createPlane(meshL, colors[4]));
         group.getChildren().add(createPlane(meshR, colors[5]));
-
+        
         return group;
     }
 
@@ -182,6 +172,7 @@ public class CuboPeq {
             3, 3, 3,
             2, 2, 2,
             1, 1, 1,});
+        
         return mesh;
     }
 
@@ -205,11 +196,21 @@ public class CuboPeq {
         this.posZ = posZ;
     }
 
-    public void rotarCuboPeq() {
-        System.out.println("pos X: "+posX);
-        //cubeXform000.setRotationAxis(new Point3D(posX*sizeCubo,posY*sizeCubo,posZ*sizeCubo));
-        //cubeXform000.setr
-        cubeXform000.setRc(cubeXform000.getAngle() + 90.00,0.00,1.00,-0.00);
-        System.out.println("pos X: "+posX);
+    public void rotarCuboPeq(Point3D eje) {
+        cubeXform000.setRotationAxis(eje); 
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.millis(600), e -> {
+                }, new KeyValue(cubeXform000.rotateProperty(), (angulo-90.00),Interpolator.EASE_BOTH)));
+        timeline.playFromStart();
     }
+
+    public Integer getNumCubo() {
+        return numCubo;
+    }
+
+    public void setNumCubo(Integer numCubo) {
+        this.numCubo = numCubo;
+    }
+    
 }

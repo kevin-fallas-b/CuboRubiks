@@ -136,10 +136,10 @@ public class Xform extends Group {
         rx.setAngle(x);
         angle = x;
     }
-     public void setRc(double x,double posX,double posY,double posZ) {
-        rc.setAxis(new Point3D(posX, posY, posZ));
-        rc.setAngle(x);
-        angle = x;
+     public void setRc(double angulo, Point3D centro) {
+        rc.setAxis(centro);
+        rc.setAngle(angulo);
+        angle = angulo;
     }
 
     public void setRy(double y) {
