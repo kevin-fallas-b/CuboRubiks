@@ -9,20 +9,8 @@ import cuborubiks.CuboRubiks;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.Rotate;
-import javafx.util.Duration;
 
 /**
  *
@@ -31,6 +19,7 @@ import javafx.util.Duration;
 public class CuboGrande {
 
     public CuboPeq cubo[][][] = new CuboPeq[3][3][3];
+    private CuboPeq cuboTemp[][][] = new CuboPeq[3][3][3];//auxiliar
     private Date fecha;//fecha se utiliza para cuando se guarda la partida, caso contrario es NULL
     private String nombre;//solo se pide el nombre cuando se guarda la partida
     private Integer tiempo = 0;// guarda tiempo en segundos
@@ -106,6 +95,7 @@ public class CuboGrande {
                     CuboPeq cub = new CuboPeq(cont, posX, posY, posZ, colores);
                     cub.setNumCubo(cont);
                     cubo[i][k][j] = cub;
+                    cuboTemp[i][k][j] = cubo[i][k][j];
                     posX += 1.05;//1.10
                     cont++;
                 }
@@ -118,7 +108,6 @@ public class CuboGrande {
     }
 
     public void mover(String direccion) {//metodo solo se encarga de mover logicamente los cubos y luego llama el metodo que hace la animacion
-        imprimirCubo();
         //agregar el movimiento a la lista enlazada
         Movimiento aux = movimientos;
         Movimiento movNuevo = new Movimiento();
@@ -134,155 +123,105 @@ public class CuboGrande {
         }
         //girar cubo
         System.out.println("moviendo cubo con direccion: " + direccion);
-        CuboPeq cuboTemp[][][] = new CuboPeq[3][3][3];
         Point3D axis = new Point3D(0, 0, 0);//eje sobre el cual se gira a la hora de hacer la animacion, cada movimiento lo cambia
         int t = 0;
         //recordar, profundidad, altura, ancho, y ancho esta al reves
-        switch (direccion) {
-            case "r":
-                axis = new Point3D(-1, 0, 0);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[t][k][2] = cubo[k][i][2];
-                        cambios.add(cubo[k][i][0]);
-                    }
-                    t++;
-                }
-
-                break;
-            case "ri":
-                axis = new Point3D(1, 0, 0);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[k][t][0] = cubo[i][k][0];
-                        cambios.add(cubo[i][k][0]);
-                    }
-                    t++;
-                }
-
-                break;
-            case "l":
-                axis = new Point3D(1, 0, 0);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[k][t][2] = cubo[i][k][2];
-                        cambios.add(cubo[i][k][2]);
-                    }
-                    t++;
-                }
-                
-                break;
-            case "li":
-                axis = new Point3D(-1, 0, 0);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[t][k][0] = cubo[k][i][0];
-                        cambios.add(cubo[k][i][0]);
-                    }
-                    t++;
-                }
-                
-                break;
-            case "b":
-                axis = new Point3D(0, 0, 1);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[2][t][k] = cubo[2][k][i];
-                        cambios.add(cubo[2][k][i]);
-                    }
-                    t++;
-                }
-                
-                break;
-            case "bi":
-                axis = new Point3D(0, 0, -1);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[2][k][t] = cubo[2][i][k];
-                        cambios.add(cubo[2][i][k]);
-                    }
-                    t++;
-                }
-                
-                break;
-            case "d":
-                axis = new Point3D(0, -1, 0);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[k][0][t] = cubo[i][0][k];
-                        cambios.add(cubo[i][0][k]);
-                    }
-                    t++;
-                }
-                
-                break;
-            case "di":
-                axis = new Point3D(0, 1, 0);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[t][0][k] = cubo[k][0][i];
-                        cambios.add(cubo[k][0][i]);
-                    }
-                    t++;
-                }
-                
-                break;
-            case "f":
-                axis = new Point3D(0, 0, -1);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[0][k][t] = cubo[0][i][k];
-                        cambios.add(cubo[0][i][k]);
-                    }
-                    t++;
-                }
-                
-                break;
-            case "fi":
-                axis = new Point3D(0, 0, 1);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[0][t][k] = cubo[0][k][i];
-                        cambios.add(cubo[0][k][i]);
-                    }
-                    t++;
-                }
-                break;
-            case "u":
-                axis = new Point3D(0, 1, 0);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[t][2][k] = cubo[k][2][i];
-                        cambios.add(cubo[k][2][i]);
-                    }
-                    t++;
-                }
-                
-                break;
-            case "ui":
-                axis = new Point3D(0, -1, 0);
-                for (int i = 2; i >= 0; i--) {
-                    for (int k = 0; k < 3; k++) {
-                        cuboTemp[k][2][t] = cubo[i][2][k];
-                        cambios.add(cubo[i][2][k]);
-                    }
-                    t++;
-                }
-                
-                break;
-        }
-        girar(axis);
-        //guardar, pasar del cubo temporal al real
-        for (int i = 0; i < 3; i++) {
-            for (int k = 0; k < 3; k++) {
-                for (int g = 0; g < 3; g++) {
-                    if (cuboTemp[i][k][g] != null) {
-                        cubo[i][k][g] = cuboTemp[i][k][g];
-                    }
+        for (int y = 2; y >= 0; --y) {
+            for (int x = 0; x < 3; x++) {
+                switch (direccion) {
+                    case "li":
+                        axis = new Point3D(-1, 0, 0);
+                        cuboTemp[x][t][2] = cubo[y][x][2];
+                        cambios.add(cubo[y][x][2]);
+                        break;
+                    case "l":
+                        axis = new Point3D(1, 0, 0);
+                        cuboTemp[t][x][2] = cubo[x][y][2];
+                        cambios.add(cubo[x][y][2]);
+                        break;
+                    case "ri"://en realidad es ri
+                        axis = new Point3D(1, 0, 0);
+                        cuboTemp[t][x][0] = cubo[x][y][0];
+                        cambios.add(cuboTemp[t][x][0]);
+                        break;
+                    case "r":
+                        axis = new Point3D(-1, 0, 0);
+                        cuboTemp[x][t][0] = cubo[y][x][0];
+                        cambios.add(cubo[y][x][0]);
+                        break;
+                    case "ui":
+                        axis = new Point3D(0, -1, 0);
+                        cuboTemp[t][2][x] = cubo[x][2][y];
+                        cambios.add(cubo[x][2][y]);
+                        //cubo[0][0][0].moverCuboPeq(cubo[0][0][0].getPosX() - 1.00, cubo[0][0][0].getPosY(), cubo[0][0][0].getPosZ());
+                        cubo[0][0][0].pruebaRotar(axis);
+                        break;
+                    case "u":
+                        axis = new Point3D(-1, 0, 0);//axis real es 0,-1,0
+                        /*cuboTemp[x][2][t] = cubo[y][2][x];
+                        cambios.add(cubo[y][2][x]);
+                        for (int k = 0; k < 3; k++) {
+                            for (int i = 0; i < 3; i++) {
+                                cubo[k][0][i].moverCuboPeq(cubo[k][0][i].getPosX() - 1.00, cubo[k][0][i].getPosY(), cubo[k][0][i].getPosZ());
+                            }
+                        }*/
+                        cubo[0][0][0].moverCuboPeq(cubo[0][0][0].getPosX() - 0.20, cubo[0][0][0].getPosY(), cubo[0][0][0].getPosZ());
+                        cubo[0][0][0].pruebaRotar(axis);
+                        break;
+                    case "E":
+                        cuboTemp[x][1][t] = cubo[y][1][x];
+                        break;
+                    case "Ei":
+                        cuboTemp[t][1][x] = cubo[x][1][y];
+                        break;
+                    case "di":
+                        axis = new Point3D(0, 1, 0);
+                        cuboTemp[x][0][t] = cubo[y][0][x];
+                        cambios.add(cubo[y][0][x]);
+                        break;
+                    case "d":
+                        axis = new Point3D(0, -1, 0);
+                        cuboTemp[t][0][x] = cubo[x][0][y];
+                        cambios.add(cubo[x][0][y]);
+                        break;
+                    case "fi":
+                        axis = new Point3D(0, 0, 1);
+                        cuboTemp[0][x][t] = cubo[0][y][x];
+                        cambios.add(cubo[0][y][x]);
+                        break;
+                    case "f":
+                        axis = new Point3D(0, 0, -1);
+                        cuboTemp[0][t][x] = cubo[0][x][y];
+                        cambios.add(cubo[0][x][y]);
+                        break;
+                    case "S":
+                        cuboTemp[1][x][t] = cubo[1][y][x];
+                        break;
+                    case "Si":
+                        cuboTemp[1][t][x] = cubo[1][x][y];
+                        break;
+                    case "bi":
+                        axis = new Point3D(0, 0, -1);
+                        cuboTemp[2][t][x] = cubo[2][x][y];
+                        cambios.add(cubo[2][x][y]);
+                        break;
+                    case "b":
+                        axis = new Point3D(0, 0, 1);
+                    /*cuboTemp[2][x][t] = cubo[2][y][x];
+                        cambios.add(cubo[2][y][x]);
+                        cubo[0][1][2].moverCuboPeq(cubo[0][1][2].getPosX() - 1.00, cubo[0][1][2].getPosY(), cubo[0][1][2].getPosZ());
+                        break;*/
                 }
             }
+            t++;
         }
-        //imprimirCubo();
+
+        for (int f = 0; f < 3; f++) {
+            for (int l = 0; l < 3; l++) {
+                System.arraycopy(cuboTemp[f][l], 0, cubo[f][l], 0, 3);
+            }
+        }
+        //girar(axis);
     }
 
     public void moverDeInternet(String dir) {
@@ -384,4 +323,42 @@ public class CuboGrande {
             System.out.println("\n\n");
         }
     }
+
+    /*private void moverMio(String direccion) {
+        CuboPeq cuboTem[][][] = new CuboPeq[3][3][3];
+        Point3D axis = new Point3D(0, 0, 0);
+        int t = 0;
+        switch (direccion) {
+            case "r":
+                for (int i = 2; i >= 0; i--) {
+                    for (int k = 0; k < 3; k++) {
+                        axis = new Point3D(-1, 0, 0);
+                        cuboTem[k][i][0] = cubo[2 - i][k][0];
+                        cambios.add(cubo[2 - i][k][0]);
+                    }
+                }
+                break;
+            case "d":
+                axis = new Point3D(0, -1, 0);
+                for (int i = 2; i >= 0; i--) {
+                    for (int k = 0; k < 3; k++) {
+                        cuboTemp[k][0][t] = cubo[i][0][k];
+                        cambios.add(cubo[i][0][k]);
+                    }
+                    t++;
+                }
+                break;
+
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int k = 0; k < 3; k++) {
+                for (int g = 0; g < 3; g++) {
+                    if (cuboTemp[i][k][g] != null) {
+                        cubo[i][k][g] = cuboTemp[i][k][g];
+                    }
+                }
+            }
+        }
+        girar(axis);
+    }*/
 }

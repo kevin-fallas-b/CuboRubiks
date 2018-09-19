@@ -11,8 +11,6 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -22,7 +20,6 @@ import javafx.scene.shape.Mesh;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import javafx.scene.shape.VertexFormat;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 /**
@@ -37,6 +34,7 @@ public class CuboPeq {
     private Double posY;
     private Double posZ;
     private Double angulo;
+    private Point3D axis = new Point3D(-1,0,0);
     private Integer numCubo;
     private Color colorLado[] = new Color[6];    
     /*
@@ -189,7 +187,7 @@ public class CuboPeq {
     public void moverCuboPeq(Double posX, Double posY, Double posZ) {
         for (double i = this.posX; i > posX; i -= 0.01) {
             cubeXform000.setTranslate(i * sizeCubo, posY * sizeCubo, posZ * sizeCubo);
-            System.out.println("i: " + i);
+            //System.out.println("i: " + i);
         }
         this.posX = posX;
         this.posY = posY;
@@ -198,11 +196,25 @@ public class CuboPeq {
 
     public void rotarCuboPeq(Point3D eje) {
         cubeXform000.setRotationAxis(eje); 
+        /*if(axis!=null){
+            System.out.println("brincando cubo ");
+            return;
+        }*/
+        /*if(!axis.equals(eje)){
+            System.out.println("cambiando angulo de giro");
+            angulo=0.00;
+            
+        }*/
+
+        //System.out.println("rotate en: "+cubeXform000.getRotate());
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(
-                new KeyFrame(Duration.millis(600), e -> {
+                new KeyFrame(Duration.millis(1600), e -> {
                 }, new KeyValue(cubeXform000.rotateProperty(), (angulo-90.00),Interpolator.EASE_BOTH)));
         timeline.playFromStart();
+        angulo+=-90;
+        //axis=eje;
+        //System.out.println("ahora rotate en: "+cubeXform000.getRotate());
     }
 
     public Integer getNumCubo() {
@@ -212,5 +224,17 @@ public class CuboPeq {
     public void setNumCubo(Integer numCubo) {
         this.numCubo = numCubo;
     }
-    
+    public void pruebaRotar(Point3D eje){
+        //System.out.println("x viejo "+cubeXform000.getTranslateX());
+        cubeXform000.setRotationAxis(eje); 
+        if(!eje.equals(axis)){
+            cubeXform000.setTranslate(this.posX*50, (this.posY+2)*50, this.posZ*50);
+        }
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.millis(1600), e -> {
+                }, new KeyValue(cubeXform000.rotateProperty(), (angulo-90.00),Interpolator.EASE_BOTH)));
+        timeline.playFromStart();
+        cubeXform000.setTranslate(this.posX*50, (this.posY+2)*50, this.posZ*50);      
+    }
 }
