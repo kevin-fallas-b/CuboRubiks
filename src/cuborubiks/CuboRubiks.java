@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
  * @author Kevin F
  */
 public class CuboRubiks extends Application {
-    public static Color colores[] = new Color[]{Color.GREEN,Color.BLUE,Color.WHITE,Color.YELLOW,Color.RED,Color.ORANGERED};
+    public static Color colores[] = new Color[]{Color.BLUE,Color.GREEN,Color.WHITE,Color.YELLOW,Color.ORANGERED,Color.RED};
     /*
     vector que contiene el color de cada cara del cubo, recordar que cada pieza, sin importar si es centro o no tiene 6 lados
         0=frente

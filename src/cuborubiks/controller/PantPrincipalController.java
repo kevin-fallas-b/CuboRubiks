@@ -72,11 +72,6 @@ public class PantPrincipalController extends Controller implements Initializable
     private VBox vBoxOpciones;
     @FXML
     private HBox hBoxMoverCamara;
-
-    private Group root = new Group();
-    public static Xform world = new Xform();
-    //se utiliza SubScene ya que se puede incluir dentro del BorderPane
-    private SubScene subScene = new SubScene(root, 1024, 450, true, javafx.scene.SceneAntialiasing.BALANCED);
     public static CuboGrande cubo = new CuboGrande();
     public static Timer timer = new Timer();
     private Boolean pausa = false;
@@ -110,22 +105,23 @@ public class PantPrincipalController extends Controller implements Initializable
     private Label lblJuegoPausado;
     @FXML
     private Label lblMovimientos;
+    @FXML
+    private VBox vBoxMoverCamara1;
+    @FXML
+    private JFXButton btnGCamAdelante;
+    @FXML
+    private JFXButton btnGCamAtras;
+    @FXML
+    private Label lblGirarCamara;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        root.setDepthTest(DepthTest.ENABLE);
         lblJuegoPausado.setVisible(false);
-        root.getChildren().add(world);
-        CoordinateAxes coordinateAxes = new CoordinateAxes();
-        world.getChildren().addAll(coordinateAxes.get());
         cubo.crearCubo();
-        subScene.setFill(Color.GREY);
-        //viewer le agrega camara y control de camara al subscene
-        Viewer viewer = new Viewer(subScene, root);
-        bpPrincipal.setCenter(subScene);
+        bpPrincipal.setCenter(cubo.getSubScene());
         iniciarTiempo();
     }
 
@@ -135,32 +131,32 @@ public class PantPrincipalController extends Controller implements Initializable
 
     @FXML
     private void presionarBtnGCamDerecha(ActionEvent event1) {
-        //disminuir X en 180,
-        System.out.println("moviendo camara a la derecha");
-        Camera camera = subScene.getCamera();
-        Xform cameraXform = new Xform();
-        Xform cameraXform2 = new Xform();
-        Xform cameraXform3 = new Xform();
-        root.getChildren().add(cameraXform);
-        cameraXform.getChildren().add(cameraXform2);
-        cameraXform2.getChildren().add(cameraXform3);
-        cameraXform3.getChildren().add(camera);
-
-        //btnGCamDerecha.setOnAction((event) -> {
-        //event.fireEvent(camera, new MouseDragEvent(0,0,0 ,0, MouseButton.PRIMARY, 1, false, false, false, false, true, false, false, false, false, new PickResult(), btnGCamDerecha));
-        //});
+        cubo.rotarCamara("de");
     }
 
     @FXML
     private void presionarBtnGCamIzquierda(ActionEvent event) {
+        cubo.rotarCamara("iz");
     }
 
     @FXML
     private void presionarBtnGCamAbajo(ActionEvent event) {
+        cubo.rotarCamara("ab");
     }
 
     @FXML
     private void presionarBtnGCamArriba(ActionEvent event) {
+        cubo.rotarCamara("ar");
+    }
+
+    @FXML
+    private void presionarBtnGCamAdelante(ActionEvent event) {
+        cubo.rotarCamara("ad");
+    }
+
+    @FXML
+    private void presionarBtnGCamAtras(ActionEvent event) {
+        cubo.rotarCamara("at");
     }
 
     @FXML
@@ -192,18 +188,22 @@ public class PantPrincipalController extends Controller implements Initializable
         //pausa = !pausa;
         if (pausa == false) {
             pausa = true;
+            lblGirarCamara.setDisable(true);
             lblJuegoPausado.setVisible(true);
             lblTiempo.setDisable(true);
             lblMovimientos.setDisable(true);
             vBoxMoverCamara.setDisable(true);
+            vBoxMoverCamara1.setDisable(true);
             vBoxOpciones.setDisable(true);
             hBoxMoverCamara.setDisable(true);
         } else {
             pausa = false;
             lblTiempo.setDisable(false);
+            lblGirarCamara.setDisable(false);
             lblJuegoPausado.setVisible(false);
             lblMovimientos.setDisable(false);
             vBoxMoverCamara.setDisable(false);
+            vBoxMoverCamara1.setDisable(false);
             vBoxOpciones.setDisable(false);
             hBoxMoverCamara.setDisable(false);
         }
@@ -215,7 +215,22 @@ public class PantPrincipalController extends Controller implements Initializable
 
     @FXML
     private void presionarBtnMovimientoR(ActionEvent event) {
-        cubo.mover("r");
+        String caraActiva = cubo.getLadoActivo();
+        switch (caraActiva) {
+            case "ad":
+                cubo.mover("r");
+                break;
+            case "de":
+                cubo.mover("b");
+                break;            
+            case "at":
+                cubo.mover("l");
+                break;
+            case "iz":
+                cubo.mover("f");
+                break;
+
+        }
     }
 
     @FXML
@@ -224,38 +239,129 @@ public class PantPrincipalController extends Controller implements Initializable
     }
 
     @FXML
-    private void presionarBtnMovimientoRi(ActionEvent event) {
-        cubo.mover("ri");
+    private void presionarBtnMovimientoRi(ActionEvent event) {        
+        String caraActiva = cubo.getLadoActivo();
+        switch (caraActiva) {
+            case "ad":
+                cubo.mover("ri");
+                break;
+            case "de":
+                cubo.mover("bi");
+                break;            
+            case "at":
+                cubo.mover("li");
+                break;
+            case "iz":
+                cubo.mover("fi");
+                break;
+
+        }
     }
 
     @FXML
     private void presionarBtnMovimientoDi(ActionEvent event) {
         cubo.mover("di");
+
     }
 
     @FXML
     private void presionarBtnMovimientoL(ActionEvent event) {
-        cubo.mover("l");
+         String caraActiva = cubo.getLadoActivo();
+        switch (caraActiva) {
+            case "ad":
+                cubo.mover("l");
+                break;
+            case "de":
+                cubo.mover("f");
+                break;            
+            case "at":
+                cubo.mover("r");
+                break;
+            case "iz":
+                cubo.mover("b");
+                break;
+
+        }
     }
 
     @FXML
     private void presionarBtnMovimientoF(ActionEvent event) {
-        cubo.mover("f");
+        String caraActiva = cubo.getLadoActivo();
+        switch (caraActiva) {
+            case "ad":
+                cubo.mover("f");
+                break;
+            case "de":
+                cubo.mover("r");
+                break;            
+            case "at":
+                cubo.mover("b");
+                break;
+            case "iz":
+                cubo.mover("l");
+                break;
+
+        }
     }
 
     @FXML
     private void presionarBtnMovimientoLi(ActionEvent event) {
-        cubo.mover("li");
+        String caraActiva = cubo.getLadoActivo();
+        switch (caraActiva) {
+            case "ad":
+                cubo.mover("li");
+                break;
+            case "de":
+                cubo.mover("fi");
+                break;            
+            case "at":
+                cubo.mover("ri");
+                break;
+            case "iz":
+                cubo.mover("bi");
+                break;
+
+        }
     }
 
     @FXML
     private void presionarBtnMovimientoFi(ActionEvent event) {
-        cubo.mover("fi");
+         String caraActiva = cubo.getLadoActivo();
+        switch (caraActiva) {
+            case "ad":
+                cubo.mover("fi");
+                break;
+            case "de":
+                cubo.mover("ri");
+                break;            
+            case "at":
+                cubo.mover("bi");
+                break;
+            case "iz":
+                cubo.mover("li");
+                break;
+
+        }
     }
 
     @FXML
     private void presionarBtnMovimientoB(ActionEvent event) {
-        cubo.mover("b");
+         String caraActiva = cubo.getLadoActivo();
+        switch (caraActiva) {
+            case "ad":
+                cubo.mover("b");
+                break;
+            case "de":
+                cubo.mover("l");
+                break;            
+            case "at":
+                cubo.mover("f");
+                break;
+            case "iz":
+                cubo.mover("r");
+                break;
+
+        }
     }
 
     @FXML
@@ -265,7 +371,22 @@ public class PantPrincipalController extends Controller implements Initializable
 
     @FXML
     private void presionarBtnMovimientoBi(ActionEvent event) {
-        cubo.mover("bi");
+        String caraActiva = cubo.getLadoActivo();
+        switch (caraActiva) {
+            case "ad":
+                cubo.mover("bi");
+                break;
+            case "de":
+                cubo.mover("li");
+                break;            
+            case "at":
+                cubo.mover("fi");
+                break;
+            case "iz":
+                cubo.mover("ri");
+                break;
+
+        }
     }
 
     @FXML

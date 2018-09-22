@@ -67,7 +67,7 @@ public class CuboPeq {
         cubeXform000.setScale(sizeCubo * 1.00);//tammano del cubo
         cubeXform000.setTranslate(posX * sizeCubo, posY * sizeCubo, posZ * sizeCubo);//posicion del cubo
         cubeXform000.getChildren().add(cube);
-        PantPrincipalController.world.getChildren().add(cubeXform000);//agregar cubo a pantalla
+        
     }
 
     public Double getPosX() {
