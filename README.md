@@ -1,6 +1,8 @@
 # CuboRubiks
 Proyecto para el curso de estructuras de datos. Segundo semestre 2018, Ingenieria en Sistemas, Universidad Nacional de Costa Rica.
 
+#DESCONTINUADO - NO ACABADO
+
 El proyecto consiste de un cubo Rubiks 3D el cual puede resolverse. Cuenta con una camara la cual se puede rotar o acercar segun el gusto del usuario.
 Algunas caracteristicas del proyecto son:
 
